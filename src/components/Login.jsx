@@ -45,6 +45,7 @@ const navigate=useNavigate()
       id="password"
       type="password"
       placeholder="Enter your password"
+      required
       onChange={(e) => setUser({ ...user, password: e.target.value })}
       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
@@ -52,6 +53,7 @@ const navigate=useNavigate()
 
   <button
     type="submit"
+    required
     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-300"
   >
     Login
