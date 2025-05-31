@@ -102,7 +102,7 @@ function BookList() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/books?page=${page}&limit=7`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/books?page=${page}&limit=7`);
       setBooks(res.data.books || []);
       setTotalPages(res.data.totalPages || 1);
       setLoading(false);

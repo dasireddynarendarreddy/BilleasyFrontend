@@ -21,7 +21,7 @@ function BookDetail({user} ) {
 
   const fetchBook = async () => {
     try {
-      const res = await axios.get(`${API_URL}/api/books/${id}`);
+      const res = await axios.get(`${API_URL}/books/${id}`);
       console.log("current book data",res.data)
       setBook(res.data);
       setTotalPages(res.data);
@@ -37,7 +37,7 @@ function BookDetail({user} ) {
     try {
       if (editingReviewId) {
         // Edit review
-        await axios.put(`${API_URL}/api/reviews/${editingReviewId}`, {
+        await axios.put(`${API_URL}/reviews/${editingReviewId}`, {
           rating,
           comment,
         }, {
@@ -45,7 +45,7 @@ function BookDetail({user} ) {
         });
       } else {
         // Add new review
-        await axios.post(`${API_URL}/api/books/${id}/reviews`, {
+        await axios.post(`${API_URL}/books/${id}/reviews`, {
           rating,
           comment,
         }, {

@@ -17,7 +17,7 @@ function AddBook({user}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
+      
       await axios.post(`${import.meta.env.VITE_API_URL}/books`, book, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
