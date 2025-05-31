@@ -12,7 +12,7 @@ function AddBook({user}) {
       alert('You must be logged in to add a book');
       navigate('/login');
     }
-  }, [navigate]);
+  }, [navigate])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
