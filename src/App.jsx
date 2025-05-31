@@ -5,7 +5,7 @@ import Login from './components/Login';
 import BookList from './components/BookList';
 import AddBook from './components/AddBook';
 import BookDetails from './components/BookDetails';
-import Navbar from './components/Navbar';
+import NavBar from './components/NavBar'
 import { createContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -27,7 +27,7 @@ function App() {
     <Router>
       
       <AuthContext.Provider value={{isloggedin,setloggedin,book,setBook}}>
-         <Navbar />
+        <NavBar/>
       <Routes>
         <Route path="/" element={<BookList />} />
         <Route path="/signup" element={<Signup />} />
