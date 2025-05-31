@@ -18,11 +18,46 @@ const navigate=useNavigate()
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input placeholder="Username" onChange={(e) => setUser({ ...user, username: e.target.value })} />
-      <input type="password" placeholder="Password" onChange={(e) => setUser({ ...user, password: e.target.value })} />
-      <button type="submit">Login</button>
-    </form>
+    <form 
+  onSubmit={handleSubmit} 
+  className="w-full max-w-sm mx-auto mt-20 p-6 bg-white rounded-2xl shadow-lg space-y-5"
+>
+  <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
+
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
+      Username
+    </label>
+    <input
+      id="username"
+      type="text"
+      placeholder="Enter your username"
+      onChange={(e) => setUser({ ...user, username: e.target.value })}
+      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">
+      Password
+    </label>
+    <input
+      id="password"
+      type="password"
+      placeholder="Enter your password"
+      onChange={(e) => setUser({ ...user, password: e.target.value })}
+      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <button
+    type="submit"
+    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-300"
+  >
+    Login
+  </button>
+</form>
+
   );
 }
 
