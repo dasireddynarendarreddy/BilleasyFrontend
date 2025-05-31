@@ -7,6 +7,7 @@ function AddBook({user}) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("hello")
     const token = localStorage.getItem('token');
     if (!token) {
       alert('You must be logged in to add a book');
