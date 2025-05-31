@@ -44,13 +44,19 @@ function BookDetail({user} ) {
           headers: { Authorization: `Bearer ${user.token}` },
         });
       } else {
-        // Add new review
+        try
+        {
         await axios.post(`${API_URL}/books/${id}/reviews`, {
           rating,
           comment,
         }, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
+      }
+      catch(Error)
+      {
+        alert(Error.response.message)
+      }
       }
 
       setRating(0);
