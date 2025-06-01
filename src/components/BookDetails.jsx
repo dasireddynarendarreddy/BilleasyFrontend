@@ -25,7 +25,7 @@ function BookDetail({user} ) {
   const fetchBook = async () => {
     try {
       const res = await axios.get(import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}`);
-      console.log("current book data",res.data)
+      
       setBook(res.data);                                                                                 
       setTotalPages(res.data);
     } catch (err) {
