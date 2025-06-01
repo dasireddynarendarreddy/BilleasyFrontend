@@ -102,7 +102,8 @@ function BookList() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/books?page=${page}&limit=7`);
+      ////import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}
+      const res = await axios.get(import.meta.env.MODE === 'development'?`${import.meta.env.VITE_API_URL}/books?page=${page}&limit=7`:`${import.meta.env.VITE_API_REAL_URL}/books?page=${page}&limit=7`);
       setBooks(res.data.books || []);
       setTotalPages(res.data.totalPages || 1);
       setLoading(false);
@@ -118,7 +119,8 @@ function BookList() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/search?query=${encodeURIComponent(query)}`);
+      ////import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}
+      const res = await axios.get(import.meta.env.MODE === 'development'?`${import.meta.env.VITE_API_URL}/search?query=${encodeURIComponent(query)}`:`${import.meta.env.VITE_API_REAL_URL}/search?query=${encodeURIComponent(query)}`);
       console.log("books for searching..",res.data)
       setBooks(res.data.books|| []);
       // When searching, pagination is off or managed differently

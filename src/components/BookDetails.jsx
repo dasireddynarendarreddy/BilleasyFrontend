@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -21,7 +24,7 @@ function BookDetail({user} ) {
 
   const fetchBook = async () => {
     try {
-      const res = await axios.get(`${API_URL}/books/${id}`);
+      const res = await axios.get(import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}`);
       console.log("current book data",res.data)
       setBook(res.data);
       setTotalPages(res.data);
@@ -37,16 +40,9 @@ function BookDetail({user} ) {
     try {
       if (editingReviewId) {
         // Edit review
-        await axios.put(`${API_URL}/reviews/${editingReviewId}`, {
-          rating,
-          comment,
-        }, {
-          headers: { Authorization: `Bearer ${user.token}` },
-        });
-      } else {
-        try
-        {
-        await axios.post(`${API_URL}/books/${id}/reviews`, {
+        //import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:import.meta.env.VITE_API_REAL_URL
+        try{
+        await axios.put(import.meta.env.MODE === 'development'?`${API_URL}/reviews/${editingReviewId}`:`${import.meta.env.VITE_API_REAL_URL}/reviews/${editingReviewId}`, {
           rating,
           comment,
         }, {
@@ -55,7 +51,26 @@ function BookDetail({user} ) {
       }
       catch(Error)
       {
-        alert(Error.response.message)
+        toast.error(Error.response.data.message)
+      }
+      } else {
+        try
+        {
+          //import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}
+        const res=await axios.post(import.meta.env.MODE === 'development'?`${API_URL}/books/${id}/reviews`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}/reviews`, {
+          rating,
+          comment,
+        }, {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+        if(res.status==201)
+        {
+           toast.success("review added sucessfully!")
+        }
+      }
+      catch(Error)
+      {
+        toast.error(Error.response.data.message)
       }
       }
 
@@ -76,12 +91,13 @@ function BookDetail({user} ) {
 
   const handleDelete = async (reviewId) => {
     try {
-      await axios.delete(`${API_URL}/reviews/${reviewId}`, {
+       //import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}
+      await axios.delete(import.meta.env.MODE === 'development'?`${API_URL}/reviews/${reviewId}`:`${import.meta.env.VITE_API_REAL_URL}/reviews/${reviewId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       fetchBook();
     } catch (error) {
-      console.error('Delete error:', error.response?.data || error.message);
+      toast.error(error.response?.data || error.message);
     }
   };
 
@@ -89,6 +105,7 @@ function BookDetail({user} ) {
 
   return (
     <div className="max-w-3xl mx-auto p-4">
+      <ToastContainer/>
       <h1 className="text-2xl font-bold mb-2">{book.title}</h1>
       <p className="mb-1"><strong>Author:</strong> {book.author}</p>
       <p className="mb-1"><strong>Genre:</strong> {book.genre}</p>

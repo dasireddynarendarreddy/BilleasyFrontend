@@ -9,7 +9,8 @@ const{setloggedin}=useContext(AuthContext)
 const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, user);
+    //import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}
+    const res = await axios.post(import.meta.env.MODE === 'development'?`${import.meta.env.VITE_API_URL}/login`:`${import.meta.env.VITE_API_REAL_URL}/login`, user);
     localStorage.setItem("token", JSON.stringify(res.data));
     console.log("the data is ",res.data)
     setloggedin(true)

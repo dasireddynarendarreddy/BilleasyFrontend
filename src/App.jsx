@@ -15,6 +15,7 @@ function App() {
   const user = JSON.parse(localStorage.getItem('token'));
   console.log(user)
   const [book, setBook] = useState({ title: '', author: '', genre: '' });
+  console.log("mode is ",import.meta.env.MODE);
 
   useEffect(() => {
     // Mock example to load user from localStorage or API

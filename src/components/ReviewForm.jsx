@@ -6,8 +6,9 @@ function ReviewForm({ bookId }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}
     const token = localStorage.getItem("token");
-    await axios.post(`${import.meta.env.VITE_API_URL}/books/${bookId}/reviews`, review, {
+    await axios.post(import.meta.env.MODE === 'development'?`${import.meta.env.VITE_API_URL}/books/${bookId}/reviews`:`${import.meta.env.VITE_API_REAL_URL}/books/${bookId}/reviews`, review, {
       headers: { Authorization: `Bearer ${token}` }
     });
     alert("Review submitted");

@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 function Signup() {
   const [user, setUser] = useState({ username: '', password: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(`${import.meta.env.VITE_API_URL}/signup`, user);
-    alert("Signup successful");
+    // //import.meta.env.MODE === 'development'?`${API_URL}/books/${id}`:`${import.meta.env.VITE_API_REAL_URL}/books/${id}
+    const res=await axios.post(import.meta.env.MODE === 'development'?`${import.meta.env.VITE_API_URL}/signup`:`${import.meta.env.VITE_API_REAL_URL}/signup`, user);
+    if(res.status==201)
+    {
+            toast.success("Account Sucessfully created!")
+    }
   };
 
   return (
@@ -18,6 +25,7 @@ function Signup() {
   <h2 className="text-2xl font-bold text-center text-gray-800">Sign Up</h2>
 
   <div>
+    <ToastContainer/>
     <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
       Username
     </label>
