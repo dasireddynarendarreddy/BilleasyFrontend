@@ -8,10 +8,7 @@ function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  /*useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, []);*/
+  
 
   const handleLogout = () => {
     localStorage.removeItem('token');
